@@ -1,0 +1,26 @@
+#!/bin/bash
+
+DARWIN_URL="https://download.aporeto.com/files/apoctl/darwin/apoctl"
+LINUX_URL="https://download.aporeto.com/files/apoctl/linux/apoctl"
+
+which uname > /dev/null 2>&1
+which curl > /dev/null  2>&1
+
+uname=$(uname)
+
+[ "$uname" == "Darwin" ] && {
+   echo "Installing apoctl on Darwin"
+   sudo curl -L -o /usr/bin/apoctl $DARWIN_URL
+   sudo chmod +x /usr/bin/apoctl
+   exit 0
+}
+
+[ "$uname" == "linux" ] && {
+   echo "Installing apoctl on Linux"
+   sudo curl -L -o /usr/bin/apoctl $LINUX_URL
+   sudo chmod +x /usr/bin/apoctl
+   exit 0
+}
+
+echo "Not installed, system type unknown"
+exit 1

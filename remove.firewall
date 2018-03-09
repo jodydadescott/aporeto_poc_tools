@@ -1,0 +1,25 @@
+#!/bin/bash
+
+set -e
+set -x
+
+which apt-get > /dev/null 2>&1 && {
+   echo "Removing firewall for Debian"
+   sudo ufw disable
+   sudo apt-get -y remove ufw
+   sudo apt-get -y purge ufw
+   sudo iptables -F
+   sudo iptables -Z
+   exit 0
+}
+
+which dnf > /dev/null 2>&1 && {
+   echo "Removing firewall for Fedora"
+   sudo systemctl disable firewalld
+   sudo systemctl stop firewalld
+   sudo dnf -y remove firewalld
+   exit 0
+}
+
+echo "Not installed, system type unknown"
+exit 1

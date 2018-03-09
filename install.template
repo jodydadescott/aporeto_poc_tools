@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -e
+set -x
+
+which apt-get > /dev/null 2>&1 && {
+   exit 0
+}
+
+which dnf > /dev/null 2>&1 && {
+   exit 0
+}
+
+echo "Not installed, system type unknown"
+exit 1
