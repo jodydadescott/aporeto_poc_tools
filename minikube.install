@@ -1,10 +1,24 @@
 #!/bin/bash
 
+# Need to improve this to run as kube user
+
 set -e
 set -x
+
+which docker > /dev/null 2>&1 || { echo "docker not installed. Install docker first"; exit 1; }
 
 sudo curl -Lo /usr/bin/minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 
 sudo curl -Lo /usr/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
 
 sudo chmod +x /usr/bin/kubectl
 sudo chmod +x /usr/bin/minikube 
+
+export MINIKUBE_WANTUPDATENOTIFICATION=false
+export MINIKUBE_WANTREPORTERRORPROMPT=false
+export MINIKUBE_HOME=/kube
+export CHANGE_MINIKUBE_NONE_USER=true
+export KUBECONFIG=/kube/config
+
+sudo mkdir -p /kube
+
+sudo -E minikube start --vm-driver=none

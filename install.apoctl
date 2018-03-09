@@ -15,7 +15,7 @@ uname=$(uname)
    exit 0
 }
 
-[ "$uname" == "linux" ] && {
+[ "$uname" == "Linux" ] && {
    echo "Installing apoctl on Linux"
    sudo curl -L -o /usr/bin/apoctl $LINUX_URL
    sudo chmod +x /usr/bin/apoctl
