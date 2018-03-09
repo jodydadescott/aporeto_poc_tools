@@ -1,0 +1,21 @@
+#!/bin/bash
+
+set -e
+set -x
+
+ok=0
+scratch=$(mktemp -d -t tmp.XXXXXXXXXX)
+
+function finish {
+   cd; rm -rf "$scratch";
+   [ $ok -eq 1 ] && { echo "done"; exit 0; } || { echo "fail"; exit 4; }
+}
+trap finish EXIT
+
+cd $scratch
+git clone https://github.com/jodydadescott/aporeto_poc_users.git
+cd aporeto_poc_users
+chmod +x install
+sudo ./install
+
+ok=1
