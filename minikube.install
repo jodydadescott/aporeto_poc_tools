@@ -15,10 +15,12 @@ sudo chmod +x /usr/bin/minikube
 
 export MINIKUBE_WANTUPDATENOTIFICATION=false
 export MINIKUBE_WANTREPORTERRORPROMPT=false
-export MINIKUBE_HOME=/kube
+export MINIKUBE_HOME=$HOME
 export CHANGE_MINIKUBE_NONE_USER=true
-export KUBECONFIG=/kube/config
 
-sudo mkdir -p /kube
+cd
+mkdir -p .kube
+touch .kube/config
 
+export KUBECONFIG=$HOME/.kube/config
 sudo -E minikube start --vm-driver=none
