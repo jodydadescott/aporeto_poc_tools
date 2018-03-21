@@ -1,0 +1,27 @@
+#!/bin/bash
+
+set -e
+set -x
+
+which apt-get > /dev/null 2>&1 && {
+   echo "Installing Kubernetes for Deb"
+   sudo apt-get -y update
+   sudo apt-get -y install apt-transport-https
+   curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+   sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+   sudo apt-get update
+   curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+   echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   sudo apt-get update
+   sudo apt-get install -y kubelet kubeadm kubectl kubernetes-cni
+   exit 0
+}
+
+which yum > /dev/null 2>&1 && {
+   echo "Installing Kubernetes for Fedora"
+   echo "FATAL: I DO NOT KNOW HOW"
+   exit 0
+}
+
+echo "Not installed, system type unknown"
+exit 1

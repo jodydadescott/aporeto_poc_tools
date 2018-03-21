@@ -7,7 +7,7 @@ which apt-get > /dev/null 2>&1 && {
    exit 0
 }
 
-which dnf > /dev/null 2>&1 && {
+which yum > /dev/null 2>&1 && {
    exit 0
 }
 

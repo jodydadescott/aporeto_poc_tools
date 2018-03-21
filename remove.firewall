@@ -13,11 +13,11 @@ which apt-get > /dev/null 2>&1 && {
    exit 0
 }
 
-which dnf > /dev/null 2>&1 && {
+which yum > /dev/null 2>&1 && {
    echo "Removing firewall for Fedora"
    sudo systemctl disable firewalld
    sudo systemctl stop firewalld
-   sudo dnf -y remove firewalld
+   sudo yum -y remove firewalld
    exit 0
 }
 

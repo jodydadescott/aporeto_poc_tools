@@ -10,14 +10,18 @@ which apt-get > /dev/null 2>&1 && {
    sudo apt-get update
    sudo apt-cache policy docker-ce
    sudo apt-get install -y docker-ce
+   sudo systemctl start docker
+   sudo systemctl enable docker
    exit 0
 }
 
-which dnf > /dev/null 2>&1 && {
+which yum > /dev/null 2>&1 && {
    echo "Installing Docker for Fedora"
-   sudo dnf -y install curl
+   sudo yum -y install curl
    sudo curl -o /etc/yum.repos.d/docker-ce.repo https://download.docker.com/linux/fedora/docker-ce.repo
-   sudo dnf -y install docker-ce
+   sudo yum -y install docker-ce
+   sudo systemctl start docker
+   sudo systemctl enable docker
    exit 0
 }
 
